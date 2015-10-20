@@ -1,4 +1,4 @@
-CXXFLAGS += -g -Wall -Wextra -Werror -std=c++11 -lncurses
+CXXFLAGS += -Ofast -Wall -Wextra -Werror -std=c++11 -lncurses
 
 BUILD_DIR = build
 
@@ -6,6 +6,9 @@ all: $(BUILD_DIR)/gol
 
 run: all
 	$(BUILD_DIR)/gol
+
+clean:
+	rm -rf $(BUILD_DIR)
 
 $(BUILD_DIR)/src:
 	mkdir -p $(BUILD_DIR)/src
