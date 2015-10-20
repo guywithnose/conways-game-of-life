@@ -69,21 +69,53 @@ int main(int argc, char** argv) {
                 delete board;
                 board = newBoard;
                 break;
-            case 258:
-            case 106:
+            case 258:  // Down
                 offset.y--;
                 break;
-            case 259:
-            case 107:
+            case 106:  // 'j'
+                offset.y -= 10;
+                break;
+            case 74:  // 'J'
+                offset.y -= 25;
+                break;
+            case 10:  // '^J'
+                offset.y -= 100;
+                break;
+            case 259:  // Up
                 offset.y++;
                 break;
-            case 260:
-            case 104:
+            case 107:  // 'k'
+                offset.y += 10;
+                break;
+            case 75:  // 'K'
+                offset.y += 25;
+                break;
+            case 11:  // '^K'
+                offset.y += 100;
+                break;
+            case 260:  // Left
                 offset.x++;
                 break;
-            case 261:
-            case 108:
+            case 104:  // 'h'
+                offset.x += 10;
+                break;
+            case 72:  // 'H'
+                offset.x += 25;
+                break;
+            case 8:  // '^H'
+                offset.x += 100;
+                break;
+            case 261:  // Right
                 offset.x--;
+                break;
+            case 108:  // 'l'
+                offset.x -= 10;
+                break;
+            case 76:  // 'L'
+                offset.x -= 25;
+                break;
+            case 12:  // '^L'
+                offset.x -= 100;
                 break;
         }
 
