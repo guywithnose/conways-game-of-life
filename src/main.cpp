@@ -1,8 +1,10 @@
 // Copyright 2015 Robert Bittle
-#include <ncurses.h>
-#include <iostream>
 #include <fstream>
+#include <iostream>
+#include <ncurses.h>
 #include <stdint.h>
+#include <stdlib.h>
+#include <time.h>
 
 #include "./board.h"
 #include "./cell.h"
@@ -18,11 +20,11 @@ int main(int argc, char** argv) {
     Board* board = new Board();
     Board* newBoard;
 
+    int64_t x;
+    int64_t y;
     if (argc == 2) {
-        ifstream inputFile = ifstream();
+        ifstream inputFile;
         inputFile.open(argv[1]);
-        int64_t x;
-        int64_t y;
         while (inputFile) {
             inputFile >> x;
             if (inputFile) {
@@ -31,11 +33,15 @@ int main(int argc, char** argv) {
             }
         }
     } else {
-        board->addCell(new Cell(Position(3, 3), true));
-        board->addCell(new Cell(Position(4, 3), true));
-        board->addCell(new Cell(Position(5, 3), true));
-        board->addCell(new Cell(Position(5, 2), true));
-        board->addCell(new Cell(Position(4, 1), true));
+        srand (time(NULL));
+        for (int i = 0; i < 5000; i++) {
+            x = rand() % 100;
+            y = rand() % 100;
+            Position p = Position(x, y);
+            if (board->cells.find(p) == board->cells.end()) {
+                board->addCell(new Cell(p, true));
+            }
+        }
     }
 
     CursesDisplay* display = new CursesDisplay();
