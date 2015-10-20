@@ -60,10 +60,10 @@ void Board::addCell(Cell* cell) {
     cells.insert(std::pair<Position, Cell*>(cell->position, cell));
 }
 
-void Board::display(CursesDisplay* cursesDisplay) {
+void Board::display(CursesDisplay* cursesDisplay, Position position) {
     map<Position, Cell*, comparePositions>::const_iterator it;
     for (it = cells.begin(); it != cells.end(); ++it) {
-        cursesDisplay->printCell(it->first.x, it->first.y);
+        cursesDisplay->printCell(it->first.x + position.x, it->first.y + position.y);
     }
 }
 

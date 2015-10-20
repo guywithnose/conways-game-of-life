@@ -30,7 +30,7 @@ class Board {
      void addCell(Cell* cell);
      void feed(Position position);
      void wasAlive(Position position);
-     void display(CursesDisplay* cursesDisplay);
+     void display(CursesDisplay* cursesDisplay, Position position);
 };
 ostream& operator<< (ostream& out, const Board& board);
 #endif  // GAME_OF_LIFE_SRC_BOARD_H_

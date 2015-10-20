@@ -12,12 +12,15 @@ void printValue(int x, int y);
 
 int main() {
     Board* board = new Board();
+    Board* newBoard;
     board->addCell(new Cell(Position(3, 3), true));
     board->addCell(new Cell(Position(4, 3), true));
     board->addCell(new Cell(Position(5, 3), true));
-    board->addCell(new Cell(Position(5, 4), true));
+    board->addCell(new Cell(Position(5, 2), true));
+    board->addCell(new Cell(Position(4, 1), true));
     CursesDisplay* display = new CursesDisplay();
-    board->display(display);
+    Position offset = Position(0, 0);
+    board->display(display, offset);
     bool running = false;
     int ch = 0;
     while (ch != 'q') {
@@ -26,29 +29,47 @@ int main() {
         clear();
 
         switch (ch) {
-            // R -> Run
-            case 114:
-            case 82:
+            case 114: // 'r'
+            case 82: // 'R'
                 timeout(60);
                 running = true;
                 break;
-            // S -> Step
-            case 115:
-            case 83:
+            case 115: // 's'
+            case 83: // 'S'
                 timeout(-1);
                 running = false;
-                Board* newBoard = board->next();
+                newBoard = board->next();
                 delete board;
                 board = newBoard;
-                board->display(display);
+                board->display(display, offset);
+                break;
+            case 258:
+            case 106:
+                offset.y--;
+                board->display(display, offset);
+                break;
+            case 259:
+            case 107:
+                offset.y++;
+                board->display(display, offset);
+                break;
+            case 260:
+            case 104:
+                offset.x++;
+                board->display(display, offset);
+                break;
+            case 261:
+            case 108:
+                offset.x--;
+                board->display(display, offset);
                 break;
         }
 
         if (running) {
-            Board* newBoard = board->next();
+            newBoard = board->next();
             delete board;
             board = newBoard;
-            board->display(display);
+            board->display(display, offset);
         }
     }
 
