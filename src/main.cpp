@@ -41,27 +41,22 @@ int main() {
                 newBoard = board->next();
                 delete board;
                 board = newBoard;
-                board->display(display, offset);
                 break;
             case 258:
             case 106:
                 offset.y--;
-                board->display(display, offset);
                 break;
             case 259:
             case 107:
                 offset.y++;
-                board->display(display, offset);
                 break;
             case 260:
             case 104:
                 offset.x++;
-                board->display(display, offset);
                 break;
             case 261:
             case 108:
                 offset.x--;
-                board->display(display, offset);
                 break;
         }
 
@@ -69,8 +64,9 @@ int main() {
             newBoard = board->next();
             delete board;
             board = newBoard;
-            board->display(display, offset);
         }
+
+        board->display(display, offset);
     }
 
     clear();
