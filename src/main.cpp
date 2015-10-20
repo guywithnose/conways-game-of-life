@@ -1,10 +1,11 @@
 // Copyright 2015 Robert Bittle
-#include <fstream>
-#include <iostream>
 #include <ncurses.h>
 #include <stdint.h>
 #include <stdlib.h>
 #include <time.h>
+
+#include <fstream>
+#include <iostream>
 
 #include "./board.h"
 #include "./cell.h"
@@ -33,10 +34,10 @@ int main(int argc, char** argv) {
             }
         }
     } else {
-        srand (time(NULL));
+        unsigned int seed = time(NULL);
         for (int i = 0; i < 5000; i++) {
-            x = rand() % 100;
-            y = rand() % 100;
+            x = rand_r(&seed) % 100;
+            y = rand_r(&seed) % 100;
             Position p = Position(x, y);
             if (board->cells.find(p) == board->cells.end()) {
                 board->addCell(new Cell(p, true));
@@ -55,13 +56,13 @@ int main(int argc, char** argv) {
         clear();
 
         switch (ch) {
-            case 114: // 'r'
-            case 82: // 'R'
+            case 114:  // 'r'
+            case 82:  // 'R'
                 timeout(60);
                 running = true;
                 break;
-            case 115: // 's'
-            case 83: // 'S'
+            case 115:  // 's'
+            case 83:  // 'S'
                 timeout(-1);
                 running = false;
                 newBoard = board->next();

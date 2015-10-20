@@ -1,6 +1,6 @@
 // Copyright 2015 Robert Bittle(guywithnose@gmail.com)
-#ifndef GAME_OF_LIFE_SRC_CELL_H_
-#define GAME_OF_LIFE_SRC_CELL_H_
+#ifndef CELL_H_
+#define CELL_H_
 #include <stdint.h>
 
 struct Position {
@@ -19,4 +19,4 @@ class Cell {
 
     Cell(Position position, bool wasAlive);
 };
-#endif  // GAME_OF_LIFE_SRC_CELL_H_
+#endif  // CELL_H_

@@ -1,3 +1,4 @@
+// Copyright 2015 Robert Bittle
 #include "./cell.h"
 
 Position::Position() : x(0), y(0) {

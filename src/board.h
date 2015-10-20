@@ -1,6 +1,6 @@
 // Copyright 2015 Robert Bittle(guywithnose@gmail.com)
-#ifndef GAME_OF_LIFE_SRC_BOARD_H_
-#define GAME_OF_LIFE_SRC_BOARD_H_
+#ifndef BOARD_H_
+#define BOARD_H_
 #include <iostream>
 #include <map>
 #include "./cell.h"
@@ -23,9 +23,11 @@ struct comparePositions {
     }
 };
 
+typedef map<Position, Cell*, comparePositions> cellMap;
+
 class Board {
  public:
-     map<Position, Cell*, comparePositions> cells;
+     cellMap cells;
      Board* next();
      void addCell(Cell* cell);
      void feed(Position position);
@@ -33,4 +35,4 @@ class Board {
      void display(CursesDisplay* cursesDisplay, Position position);
 };
 ostream& operator<< (ostream& out, const Board& board);
-#endif  // GAME_OF_LIFE_SRC_BOARD_H_
+#endif  // BOARD_H_

@@ -1,9 +1,12 @@
+// Copyright 2015 Robert Bittle
 #include "./board.h"
+
+#include <utility>
 
 Board* Board::next() {
     Board* newBoard = new Board();
 
-    map<Position, Cell*, comparePositions>::const_iterator it;
+    cellMap::const_iterator it;
     for (it = cells.begin(); it != cells.end(); ++it) {
         newBoard->wasAlive(it->first);
         newBoard->feed(Position(it->first.x - 1, it->first.y - 1));
@@ -18,7 +21,7 @@ Board* Board::next() {
 
     it = newBoard->cells.begin();
     while (it != newBoard->cells.end()) {
-        const map<Position, Cell*, comparePositions>::const_iterator toErase = it;
+        cellMap::const_iterator toErase = it;
         ++it;
         if (toErase->second->neighbors < 2 ||
                 toErase->second->neighbors > 3 ||
@@ -57,17 +60,20 @@ void Board::addCell(Cell* cell) {
 }
 
 void Board::display(CursesDisplay* cursesDisplay, Position position) {
-    map<Position, Cell*, comparePositions>::const_iterator it;
+    cellMap::const_iterator it;
     for (it = cells.begin(); it != cells.end(); ++it) {
-        cursesDisplay->printCell(it->first.x + position.x, it->first.y + position.y);
+        cursesDisplay->printCell(
+            it->first.x + position.x,
+            it->first.y + position.y);
     }
 }
 
 ostream& operator<<(ostream& out, const Board& board) {
     out << "START\n";
-    map<Position, Cell*, comparePositions>::const_iterator it;
+    cellMap::const_iterator it;
     for (it = board.cells.begin(); it != board.cells.end(); ++it) {
-        out << it->first.x << "," << it->first.y << " => " << it->second->neighbors << '\n';
+        out << it->first.x << "," << it->first.y << " => "
+            << it->second->neighbors << '\n';
     }
 
     out << "END\n";
