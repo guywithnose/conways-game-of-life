@@ -16,20 +16,16 @@ Board* Board::next() {
         newBoard->feed(Position(it->first.x + 1, it->first.y + 1));
     }
 
-    for (it = newBoard->cells.begin(); it != newBoard->cells.end(); ++it) {
-        if (it->second->neighbors < 2) {
-            delete cells[it->first];
-            newBoard->cells.erase(it->first);
-        }
-
-        if (it->second->neighbors > 3) {
-            delete cells[it->first];
-            newBoard->cells.erase(it->first);
-        }
-
-        if (it->second->neighbors == 2 && !it->second->wasAlive) {
-            delete cells[it->first];
-            newBoard->cells.erase(it->first);
+    it = newBoard->cells.begin();
+    while (it != newBoard->cells.end()) {
+        const map<Position, Cell*, comparePositions>::const_iterator toErase = it;
+        ++it;
+        if (toErase->second->neighbors < 2 ||
+                toErase->second->neighbors > 3 ||
+                (toErase->second->neighbors == 2 && !toErase->second->wasAlive)
+           ) {
+            delete cells[toErase->first];
+            newBoard->cells.erase(toErase);
         }
     }
 
