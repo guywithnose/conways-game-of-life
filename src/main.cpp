@@ -1,23 +1,43 @@
 // Copyright 2015 Robert Bittle
 #include <ncurses.h>
 #include <iostream>
+#include <fstream>
+#include <stdint.h>
 
 #include "./board.h"
 #include "./cell.h"
 #include "./cursesDisplay.h"
 
+using std::cin;
 using std::cout;
+using std::ifstream;
 
 void printValue(int x, int y);
 
-int main() {
+int main(int argc, char** argv) {
     Board* board = new Board();
     Board* newBoard;
-    board->addCell(new Cell(Position(3, 3), true));
-    board->addCell(new Cell(Position(4, 3), true));
-    board->addCell(new Cell(Position(5, 3), true));
-    board->addCell(new Cell(Position(5, 2), true));
-    board->addCell(new Cell(Position(4, 1), true));
+
+    if (argc == 2) {
+        ifstream inputFile = ifstream();
+        inputFile.open(argv[1]);
+        int64_t x;
+        int64_t y;
+        while (inputFile) {
+            inputFile >> x;
+            if (inputFile) {
+                inputFile >> y;
+                board->addCell(new Cell(Position(x, y), true));
+            }
+        }
+    } else {
+        board->addCell(new Cell(Position(3, 3), true));
+        board->addCell(new Cell(Position(4, 3), true));
+        board->addCell(new Cell(Position(5, 3), true));
+        board->addCell(new Cell(Position(5, 2), true));
+        board->addCell(new Cell(Position(4, 1), true));
+    }
+
     CursesDisplay* display = new CursesDisplay();
     Position offset = Position(0, 0);
     board->display(display, offset);
